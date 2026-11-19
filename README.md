@@ -58,7 +58,7 @@ Classification/
 │
 ├── notebooks/                          # مجلد مخصص لدفاتر Jupyter Notebook
 │
-├── Round Robin/                        # تطبيق محاكاة خوارزمية Round Robin
+├── round_robin/                        # تطبيق محاكاة خوارزمية Round Robin
 │   └── round_robin.py                 # واجهة Tkinter لمحاكاة الجدولة
 │
 ├── nabil.py                            # النظام المتقدم لمحاكاة خوارزميات الجدولة (GUI متقدم)
@@ -127,4 +127,4 @@ python src/evaluate.py
     ```powershell
     python nabil.py
     ```
-  * [Round Robin/round_robin.py](file:///c:/Users/hp/Classification/Round Robin/round_robin.py): محاكي مخصص لخوارزمية Round Robin.
+  * [round_robin/round_robin.py](file:///c:/Users/hp/Classification/round_robin/round_robin.py): محاكي مخصص لخوارزمية Round Robin.
