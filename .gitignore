@@ -1,0 +1,35 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE and Editor settings
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Large datasets (Keep folder with .gitkeep)
+data/*.csv
+!data/.gitkeep
+
+# Models (optional to ignore or track - comment out if you want git LFS)
+# models/*.pkl
+
+# Results and figures generated automatically
+# results/*.png
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
