@@ -1,6 +1,28 @@
 # مشروع كشف الاحتيال في البطاقات الائتمانية (Credit Card Fraud Detection)
 
-مشروع تعلم آلي (Machine Learning) مبني بلغة Python، يهدف إلى تحليل وتصنيف المعاملات المالية للبطاقات الائتمانية إلى معاملات **طبيعية (Normal)** أو **احتيالية (Fraudulent)** باستخدام خوارزميات التصنيف (مثل Random Forest).
+مشروع تعلم آلي (Machine Learning) مبني بلغة Python، يهدف إلى تحليل وتصنيف المعاملات المالية للبطاقات الائتمانية إلى معاملات **طبيعية (Normal)** أو **احتيالية (Fraudulent)** باستخدام خوارزمية **Random Forest Classifier**، ومزوّد بـ **واجهة رسومية تفاعلية (GUI)** كاملة للفحص والتحليل.
+
+---
+
+## 🖥️ تشغيل الواجهة الرسومية (GUI Dashboard)
+
+أسهل وأفضل طريقة لتشغيل المشروع هي عبر تشغيل الواجهة الرسومية الرئيسية:
+
+```powershell
+python main.py
+```
+
+### ✨ ميزات الواجهة الرسومية:
+1. **💳 فحص المعاملات الحية:**
+   * زر لاختبار **معاملة احتيالية حقيقية** بنقرة واحدة.
+   * زر لاختبار **معاملة طبيعية آمنة** بنقرة واحدة.
+   * إدخال مخصص لجميع ميزات المعاملة (Time, Amount, V1-V28).
+   * عرض نتيجة الفحص الفورية مع نسبة الخطر واحتمالية الاحتيال.
+2. **📊 استعراض التقارير والمخططات:**
+   * عرض بطاقات مؤشرات الأداء (Accuracy: 99.95%, Precision: 94%, Recall: 81%).
+   * استعراض الرسوم البيانية المحفوظة (Confusion Matrix, ROC Curve, PR Curve, إلخ) داخل النافذة مباشرة.
+3. **⚙️ إدارة وتدريب النموذج:**
+   * إعادة تدريب نموذج Random Forest على كامل البيانات بنقرة زر في خيط خلفي (Background Thread) دون تجميد الواجهة.
 
 ---
 
@@ -9,9 +31,12 @@
 ```text
 Classification/
 │
+├── main.py                             # الواجهة الرسومية الرئيسية لمشروع كشف الاحتيال (GUI Dashboard)
+│
 ├── data/                               # مجلد البيانات
 │   ├── creditcard.csv                 # مجموعة البيانات الأصلية
-│   └── creditcard_processed.csv       # البيانات بعد المعالجة المسبقة
+│   ├── creditcard_processed.csv       # البيانات بعد المعالجة المسبقة
+│   └── samples_for_gui.csv            # عينات حقيقية سريعة لاختبار الواجهة
 │
 ├── models/                             # مجلد حفظ النماذج
 │   ├── trained_model.pkl              # نموذج Random Forest المدرب
@@ -59,39 +84,25 @@ Classification/
 
 > [!NOTE]
 > الحزم الرئيسية المستخدمة في المشروع:
-> `scikit-learn`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `joblib`
+> `scikit-learn`, `pandas`, `numpy`, `matplotlib`, `seaborn`, `joblib`, `Pillow`
 
 ---
 
-## 🚀 طريقة تشغيل المشروع (Pipeline Workflow)
+## 🚀 التشغيل عبر سطر الأوامر (Command Line Pipeline)
 
-يمكن تشغيل مراحل المشروع خطوة بخطوة بالترتيب التالي:
+يمكن أيضاً تشغيل مراحل المشروع عبر السكربتات المستقلة بالترتيب التالي:
 
-### 1. التحليل الاستكشافي للبيانات (EDA)
-عرض إحصائيات البيانات، فحص القيم المفقودة، ورسم التوزيعات:
 ```powershell
+# 1. التحليل الاستكشافي للبيانات (EDA)
 python src/fraud_eda_preprocess.py
-```
-أو لإنشاء مصفوفة الارتباط والتحليلات الإضافية:
-```powershell
+
+# 2. مصفوفة الارتباط والتحليلات الإضافية
 python src/fraud_detection_analysis.py
-```
 
-### 2. تجهيز ومعالجة البيانات (Preprocessing)
-تقسيم البيانات إلى بيانات تدريب واختبار مع موازنة الفئات (`stratify`) وتطبيق `StandardScaler`:
-```powershell
-python src/preprocess.py
-```
-
-### 3. تدريب النموذج (Training)
-تدريب نموذج `RandomForestClassifier` وحفظ النموذج المدرب في `models/trained_model.pkl`:
-```powershell
+# 3. تدريب النموذج وحفظه
 python src/train_model.py
-```
 
-### 4. تقييم أداء النموذج (Evaluation)
-اختبار النموذج على بيانات الاختبار وتوليد تقارير الأداء ومخططات التقييم في مجلد `results/`:
-```powershell
+# 4. تقييم أداء النموذج وتوليد المخططات
 python src/evaluate.py
 ```
 
@@ -99,11 +110,11 @@ python src/evaluate.py
 
 ## 📊 النتائج والتقييم (Evaluation Metrics)
 
-نظراً لعدم توازن فئات الاحتيال (Imbalanced Data) حيث تمثل العمليات الاحتيالية نسبة ضئيلة جداً (~0.17%)، يتم الاعتماد على مقاييس:
-* **Precision & Recall** للفئة 1 (الاحتيال).
-* **PR Curve (Precision-Recall Curve)**.
-* **ROC-AUC Score**.
-* **مصفوفة الالتباس (Confusion Matrix)** للتأكد من تقليل الإيجابيات الكاذبة والسلبيات الكاذبة.
+* **الدقة (Precision) لكشف الاحتيال:** 94.05%
+* **الاسترجاع (Recall) لكشف الاحتيال:** 80.61%
+* **F1-Score:** 0.87
+* **مساحة منحنى ROC (AUC):** 0.97
+* **الدقة العامة (Accuracy):** 99.95%
 
 جميع المخططات البيانية والتقارير تحفظ تلقائياً داخل المجلد [results/](file:///c:/Users/hp/Classification/results).
 
@@ -111,6 +122,9 @@ python src/evaluate.py
 
 ## 🛠️ أدوات إضافية داخل المشروع
 
-* **محاكي خوارزميات الجدولة (CPU Scheduling Simulator):**
-  * [nabil.py](file:///c:/Users/hp/Classification/nabil.py): واجهة رسومية متقدمة (Tkinter) لمحاكاة خوارزميات الجدولة بأنظمة التشغيل (Round Robin, FCFS, SJF, Priority, SRTF) مع مخطط جانت الزمني.
+* **محاكي خوارزميات الجدولة في أنظمة التشغيل (CPU Scheduling Simulator):**
+  * [nabil.py](file:///c:/Users/hp/Classification/nabil.py): واجهة رسومية متقدمة (Tkinter) لمحاكاة خوارزميات الجدولة (Round Robin, FCFS, SJF, Priority, SRTF) مع مخطط جانت الزمني.
+    ```powershell
+    python nabil.py
+    ```
   * [Round Robin/round_robin.py](file:///c:/Users/hp/Classification/Round Robin/round_robin.py): محاكي مخصص لخوارزمية Round Robin.

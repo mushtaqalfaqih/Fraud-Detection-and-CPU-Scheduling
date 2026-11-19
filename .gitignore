@@ -16,9 +16,10 @@ env/
 *.sublime-project
 *.sublime-workspace
 
-# Large datasets (Keep folder with .gitkeep)
+# Large datasets (Keep folder with .gitkeep and lightweight samples)
 data/*.csv
 !data/.gitkeep
+!data/samples_for_gui.csv
 
 # Models (optional to ignore or track - comment out if you want git LFS)
 # models/*.pkl
